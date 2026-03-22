@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Personal Website</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+:root {
+  /* Dark mode (default) */
+  --bg-primary: #020617;
+  --bg-card: rgba(255, 255, 255, 0.05);
+  --bg-card-hover: rgba(255, 255, 255, 0.08);
+  --text-primary: white;
+  --text-secondary: #94a3b8;
+  --border-accent: #38bdf8;
+  --shadow-blue: rgba(56, 189, 248, 0.6);
+  --shadow-card: rgba(56, 189, 248, 0.4);
+  --accent-gradient: linear-gradient(to right, #38bdf8, #6366f1);
+}
+
+[data-theme="light"] {
+  /* Light mode */
+  --bg-primary: #f8fafc;
+  --bg-card: rgba(0, 0, 0, 0.05);
+  --bg-card-hover: rgba(0, 0, 0, 0.08);
+  --text-primary: #020617;
+  --text-secondary: #64748b;
+  --border-accent: #38bdf8;
+  --shadow-blue: rgba(56, 189, 248, 0.4);
+  --shadow-card: rgba(56, 189, 248, 0.3);
+  --accent-gradient: linear-gradient(to right, #38bdf8, #6366f1);
+}
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+
+
+section{
+  padding:100px 8%;
+}
+
+/* ================= LOADER ================= */
+#loader{
+  position:fixed;
+  width:100%;
+  height:100%;
+  background: var(--bg-primary);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  z-index:9999;
+  animation:fadeOut 1s ease forwards;
+  animation-delay:2.5s;
+}
+
+.loader-content h1{
+  font-size:4rem;
+  background: var(--accent-gradient);
+  -webkit-background-clip:text;
+  color:transparent;
+  animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+  0%,100%{opacity:.6}
+  50%{opacity:1}
+}
+
+@keyframes fadeOut{
+  to{opacity:0;visibility:hidden}
+}
+
+/* ================= HERO ================= */
+.hero{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  perspective:1200px;
+}
+
+.hero-wrapper{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:80px;
+  width:100%;
+  max-width:1200px;
+}
+
+.hero-content{
+  flex:1;
+  transition:.2s ease;
+}
+
+.hero-content h1{
+  font-size:4rem;
+  line-height:1.1;
+  background: var(--accent-gradient);
+  -webkit-background-clip:text;
+  color:transparent;
+}
+
+.hero-content h2{
+  margin-top:20px;
+  font-size:1.3rem;
+  color: var(--text-secondary);
+}
+
+.profile-container{
+  flex:1;
+  display:flex;
+  justify-content:center;
+  transition:.2s ease;
+}
+
+.profile-circle{
+  width:330px;
+  height:330px;
+  border-radius:50%;
+  overflow:hidden;
+  border:5px solid var(--border-accent);
+  box-shadow:0 0 50px var(--shadow-blue);
+}
+
+.profile-circle img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:top center;
+}
+
+/* ================= ABOUT ================= */
+.about{
+  text-align:center;
+}
+
+.about h2{
+  font-size:2.5rem;
+  margin-bottom:30px;
+}
+
+.about p{
+  max-width:700px;
+  margin:auto;
+  color: var(--text-secondary);
+  line-height:1.8;
+}
+
+/* ================= SKILLS ================= */
+.skills h2{
+  text-align:center;
+  font-size:2.5rem;
+  margin-bottom:50px;
+}
+
+.skill-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:30px;
+}
+
+.skill-card{
+  background:var(--bg-card);
+  padding:40px;
+  border-radius:20px;
+  text-align:center;
+  transition:.3s;
+}
+
+.skill-card:hover{
+  transform:translateY(-10px);
+  background:var(--bg-card-hover);
+}
+
+/* ================= ACHIEVEMENTS ================= */
+.achievements{
+  text-align:center;
+}
+
+.achievement-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:30px;
+}
+
+.achievement-card{
+  background:var(--bg-card);
+  padding:40px;
+  border-radius:20px;
+  transition:.3s;
+}
+
+.achievement-card h3{
+  font-size:2.5rem;
+  color: var(--border-accent);
+}
+
+/* ================= GALLERY ================= */
+.gallery h2{
+  text-align:center;
+  font-size:2.5rem;
+  margin-bottom:50px;
+}
+
+.gallery-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:25px;
+}
+
+.gallery-item{
+  overflow:hidden;
+  border-radius:20px;
+}
+
+.gallery-item img{
+  width:100%;
+  height:250px;
+  object-fit:cover;
+  transition:.4s;
+}
+
+.gallery-item img:hover{
+  transform:scale(1.1);
+}
+
+/* ================= CONTACT ================= */
+.contact{
+  text-align:center;
+}
+
+.contact h2{
+  font-size:2.5rem;
+  margin-bottom:40px;
+}
+
+.contact-icons{
+  display:flex;
+  justify-content:center;
+  gap:40px;
+}
+
+.contact-icons a{
+  font-size:2rem;
+  color: var(--text-primary);
+  transition:.3s;
+}
+
+.contact-icons a:hover{
+  color: var(--border-accent);
+  transform:scale(1.2);
+}
+
+.cv-button-section {
+  padding: 80px 8%;
+  text-align: center;
+}
+
+.btn {
+  background: var(--accent-gradient);
+  color: var(--text-primary);
+  border: none;
+  padding: 16px 40px;
+  font-size: 1.2rem;
+  font-weight: 500;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 10px 30px var(--shadow-card);
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px var(--shadow-blue);
+}
+
+@media(max-width:768px){
+  .cv-button-section {
+    padding: 60px 20px;
+  }
+  .btn {
+    padding: 14px 30px;
+    font-size: 1.1rem;
+  }
+  .theme-toggle {
+    right: 20px;
+  }
+}
+
+.theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border: 2px solid var(--border-accent);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+}
+
+.theme-toggle:hover {
+  background: var(--bg-card-hover);
+  transform: scale(1.1);
+  box-shadow: 0 5px 15px var(--shadow-card);
+}
+
+.theme-toggle i {
+  transition: transform 0.3s ease;
+}
+
+[data-theme="light"] .theme-toggle i.fa-moon {
+  transform: rotate(180deg);
+}
+
+/* ================= PARTICLES ================= */
+canvas{
+  position:fixed;
+  top:0;
+  left:0;
+  z-index:-1;
+}
+
+/* ================= RESPONSIVE ================= */
+@media(max-width:768px){
+  .hero-wrapper{
+    flex-direction:column;
+    text-align:center;
+  }
+
+  .hero-content h1{
+    font-size:2.5rem;
+  }
+
+  .profile-circle{
+    width:220px;
+    height:220px;
+  }
+
+  section{
+    padding:60px 20px;
+  }
+}
+</style>
+</head>
+<body>
+
+
+<div id="loader">
+  <div class="loader-content">
+    <h1>Hii There 👋🏻 </h1>
+  </div>
+</div>
+
+<canvas id="particles"></canvas>
+
+<!-- Theme Toggle -->
+<button id="theme-toggle" class="theme-toggle" title="Toggle Theme">
+  <i class="fas fa-moon"></i>
+</button>
+
+<section class="hero" id="hero">
+  <div class="hero-wrapper">
+    <div class="hero-content">
+      <h1>Fredsa Stanlye</h1>
+      <h1>Aten</h1>
+      <h2><span id="typing"></span></h2>
+    </div>
+    <div class="profile-container">
+      <div class="profile-circle">
+        <img src="Aten.png" alt="Aten">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="about">
+  <h2>About Me</h2>
+  <p>
+   “I turn ideas into real digital products — from UI design to functional web experiences. Currently exploring how design and code can work together to solve real problems.”
+</section>
+
+<section class="skills">
+  <h2>Skills</h2>
+  <div class="skill-grid">
+    <div class="skill-card">Web Development</div>
+    <div class="skill-card">UI/UX Design</div>
+    <div class="skill-card">Problem Solving</div>
+    <div class="skill-card">Public Speaking</div>
+  </div>
+</section>
+
+<section class="achievements">
+  <h2>Achievements</h2>
+  <div class="achievement-grid">
+    <div class="achievement-card">
+      <h3>20+</h3>
+      <p>Projects Completed</p>
+    </div>
+    <div class="achievement-card">
+      <h3>4th</h3>
+      <p>Semester Student</p>
+    </div>
+    <div class="achievement-card">
+      <h3>✅</h3>
+      <p>Currently Building 3+ Projects</p>
+    </div>
+    <div class="achievement-card">
+      <h3>🥇</h3>
+      <p>Gold Medal - National English Olympiad</p>
+    </div>
+  </div>
+</section>
+
+<section class="gallery">
+  <h2>Projects & Achievements Gallery</h2>
+  <div class="gallery-grid">
+    <div class="gallery-item"><img src="project.jpeg"></div>
+    <div class="gallery-item"><img src="project 1.jpeg"></div>
+    <div class="gallery-item"><img src="juara.png"></div>
+    <div class="gallery-item"><img src="project2.jpeg"></div>
+<div class="gallery-item"><a href="https://youtu.be/zInmou_9rZk" target="_blank"><img src="thumbnail 2.jpeg"></a></div>
+<div class="gallery-item"><a href="https://youtu.be/GaCyeZ8l_X0?si=io3fiokuSaNuXX_F" target="_blank"><img src="thumbnail.jpg"></a></div>
+  </div>
+</section>
+
+<section class="cv-button-section">
+  <button class="btn" onclick="openCV()">View CV</button>
+</section>
+
+<section class="contact">
+  <h2>Lets make collaborations</h2>
+  <div class="contact-icons">
+    <a href="https://wa.me/6285122004272" target="_blank"><i class="fab fa-whatsapp"></i></a>
+    <a href="https://www.instagram.com/_pinocchioooooo/" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="https://www.linkedin.com/in/fredsa-stanlye/" target="_blank"><i class="fab fa-linkedin"></i></a>
+  </div>
+</section>
+
+<script>
+/* TYPING EFFECT */
+const text="Creative Developer | Lifelong Learner | Tech Enthusiast";
+let i=0;
+function typing(){
+  if(i<text.length){
+    document.getElementById("typing").innerHTML+=text.charAt(i);
+    i++;
+    setTimeout(typing,60);
+  }
+}
+typing();
+
+/* 3D PARALLAX */
+const hero=document.getElementById("hero");
+const heroContent=document.querySelector(".hero-content");
+const profile=document.querySelector(".profile-container");
+
+hero.addEventListener("mousemove",(e)=>{
+  let x=(window.innerWidth/2-e.pageX)/30;
+  let y=(window.innerHeight/2-e.pageY)/30;
+  heroContent.style.transform=`rotateY(${x}deg) rotateX(${y}deg)`;
+  profile.style.transform=`rotateY(${x}deg) rotateX(${y}deg)`;
+});
+
+hero.addEventListener("mouseleave",()=>{
+  heroContent.style.transform="rotateY(0) rotateX(0)";
+  profile.style.transform="rotateY(0) rotateX(0)";
+});
+
+/* PARTICLES */
+/* PARTICLES */
+/* PARTICLES */
+const canvas = document.getElementById("particles");
+const ctx = canvas.getContext("2d");
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
+
+let particles = [];
+
+function createParticles() {
+  particles = [];
+  for (let i = 0; i < 120; i++) {
+    particles.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: Math.random() * 2 + 1,
+      dx: (Math.random() - 0.5) * 0.7,
+      dy: (Math.random() - 0.5) * 0.7
+    });
+  }
+}
+
+createParticles();
+
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  const particleColor = getComputedStyle(document.documentElement).getPropertyValue('--border-accent') || '#38bdf8';
+
+  particles.forEach(p => {
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fillStyle = particleColor;
+    ctx.fill();
+
+    p.x += p.dx;
+    p.y += p.dy;
+
+    if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
+    if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+  });
+
+  requestAnimationFrame(animate);
+}
+
+animate();
+
+function openCV() {
+  window.open("CV_Fredsa Stanlye_Design.pdf", "_blank");
+}
+
+/* Theme Toggle JS */
+function loadTheme() {
+  const savedTheme = localStorage.getItem('theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+  const toggle = document.getElementById('theme-toggle');
+  const icon = toggle.querySelector('i');
+  if (savedTheme === 'light') {
+    icon.className = 'fas fa-sun';
+  } else {
+    icon.className = 'fas fa-moon';
+  }
+}
+
+function toggleTheme() {
+  const currentTheme = document.documentElement.getAttribute('data-theme');
+  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', newTheme);
+  localStorage.setItem('theme', newTheme);
+  const icon = document.querySelector('#theme-toggle i');
+  if (newTheme === 'light') {
+    icon.className = 'fas fa-sun';
+  } else {
+    icon.className = 'fas fa-moon';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', loadTheme);
+document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+</script>
+
+</body>
+</html>
